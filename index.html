@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Form</title>
+    <style>
+        body {
+             font-family: Arial; 
+             padding: 40px; 
+            }
+
+        form {
+             width: 350px; 
+             margin: auto;
+             }
+
+        input {
+             width: 100%;
+              padding: 10px;
+               margin: 10px 0;
+                border: 1px solid gray;
+             }
+        .error {
+             color: red;
+              font-size: 14px;
+             }
+        button { 
+            padding: 10px; 
+            width: 100%;
+             background: blue;
+              color: white;
+               border: none;
+             }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Registration Form</h2>
+
+<form id="myForm">
+    <input type="text" id="name" placeholder="Enter Name">
+    <p class="error" id="nameError"></p>
+
+    <input type="email" id="email" placeholder="Enter Email">
+    <p class="error" id="emailError"></p>
+
+    <input type="text" id="phone" placeholder="Enter Phone Number">
+    <p class="error" id="phoneError"></p>
+
+    <input type="password" id="password" placeholder="Enter Password">
+    <p class="error" id="passwordError"></p>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    document.getElementById("myForm").addEventListener("submit", function(e){
+        e.preventDefault();
+
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let phone = document.getElementById("phone").value;
+        let password = document.getElementById("password").value;
+
+        let valid = true;
+
+        if(name.trim() === ""){
+            document.getElementById("nameError").innerText = "Name is required";
+            valid = false;
+        } else document.getElementById("nameError").innerText = "";
+
+    
+        if(!email.includes("@")){
+            document.getElementById("emailError").innerText = "Invalid Email";
+            valid = false;
+        } else document.getElementById("emailError").innerText = "";
+
+    
+        if(phone.length !== 10){
+            document.getElementById("phoneError").innerText = "Phone must be 10 digits";
+            valid = false;
+        } else document.getElementById("phoneError").innerText = "";
+
+        
+        if(password.length < 6){
+            document.getElementById("passwordError").innerText = "Password too short";
+            valid = false;
+        } else document.getElementById("passwordError").innerText = "";
+
+        if(valid){
+            alert("Form Submitted Successfully!");
+        }
+    });
+</script>
+
+</body>
+</html>
