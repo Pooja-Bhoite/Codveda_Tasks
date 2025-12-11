@@ -3,64 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Counter App</title>
-
+    <title>Interactive Form</title>
     <style>
-        body { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            background: #f2f2f2; 
-            font-family: Arial;
-        }
-        .box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            width: 250px;
-            box-shadow: 0 0 10px gray;
-        }
-        button {
-            padding: 10px 15px;
-            margin: 10px;
-            font-size: 18px;
-        }
-        #count {
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
+        body {
+             font-family: Arial; 
+             padding: 40px; 
+            }
+
+        form {
+             width: 350px; 
+             margin: auto;
+             }
+
+        input {
+             width: 100%;
+              padding: 10px;
+               margin: 10px 0;
+                border: 1px solid gray;
+             }
+        .error {
+             color: red;
+              font-size: 14px;
+             }
+        button { 
+            padding: 10px; 
+            width: 100%;
+             background: blue;
+              color: white;
+               border: none;
+             }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <h2 id="count">0</h2>
-    <button onclick="decrement()">-</button>
-    <button onclick="increment()">+</button>
-    <button onclick="reset()">Reset</button>
-</div>
+<h2 style="text-align:center;">Registration Form</h2>
+
+<form id="myForm">
+    <input type="text" id="name" placeholder="Enter Name">
+    <p class="error" id="nameError"></p>
+
+    <input type="email" id="email" placeholder="Enter Email">
+    <p class="error" id="emailError"></p>
+
+    <input type="text" id="phone" placeholder="Enter Phone Number">
+    <p class="error" id="phoneError"></p>
+
+    <input type="password" id="password" placeholder="Enter Password">
+    <p class="error" id="passwordError"></p>
+
+    <button type="submit">Submit</button>
+</form>
 
 <script>
-    let count = 0;
+    document.getElementById("myForm").addEventListener("submit", function(e){
+        e.preventDefault();
 
-    function increment() {
-        count++;
-        document.getElementById("count").innerText = count;
-    }
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let phone = document.getElementById("phone").value;
+        let password = document.getElementById("password").value;
 
-    function decrement() {
-        if(count > 0){
-            count--;
-            document.getElementById("count").innerText = count;
+        let valid = true;
+
+        if(name.trim() === ""){
+            document.getElementById("nameError").innerText = "Name is required";
+            valid = false;
+        } else document.getElementById("nameError").innerText = "";
+
+    
+        if(!email.includes("@")){
+            document.getElementById("emailError").innerText = "Invalid Email";
+            valid = false;
+        } else document.getElementById("emailError").innerText = "";
+
+    
+        if(phone.length !== 10){
+            document.getElementById("phoneError").innerText = "Phone must be 10 digits";
+            valid = false;
+        } else document.getElementById("phoneError").innerText = "";
+
+        
+        if(password.length < 6){
+            document.getElementById("passwordError").innerText = "Password too short";
+            valid = false;
+        } else document.getElementById("passwordError").innerText = "";
+
+        if(valid){
+            alert("Form Submitted Successfully!");
         }
-    }
-
-    function reset() {
-        count = 0;
-        document.getElementById("count").innerText = count;
-    }
+    });
 </script>
 
 </body>
